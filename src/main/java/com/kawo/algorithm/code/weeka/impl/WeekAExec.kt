@@ -1,25 +1,34 @@
 package com.kawo.algorithm.code.weeka.impl
 
 import com.kawo.algorithm.code.weeka.agreement.WeekAExecAgreement
+import com.kawo.algorithm.common.LOGGER
 import com.kawo.algorithm.common.SpeedTimeStatistics
 import com.kawo.algorithm.common.speed
 
 class WeekAExec : WeekAExecAgreement {
 
-    override fun maxArea() = speed {
+    private val engine = WeekAHomeWork()
 
+    override fun maxArea() = speed {
+        LOGGER.info("11. 盛最多水的容器 执行完毕","预期结果 49 实际结果:${engine.maxArea(arrayOf(1,8,6,2,5,4,8,3,7))}");
     }
 
     override fun moveZeroes() = speed {
-
+        var array = arrayOf(0,1,0,3,12)
+        engine.moveZeroes(array)
+        var string = ""
+        for (i in array) {
+            string += " $i"
+        }
+        LOGGER.info("283. 移动零 执行完毕","预期结果 [1,3,12,0,0] 实际结果:$string");
     }
 
     override fun climbStairs() = speed {
-
+        LOGGER.info("70. 爬楼梯 执行完毕","预期结果 89 实际结果:${engine.climbStairs(10)}");
     }
 
     override fun threeSum() = speed {
-
+        LOGGER.info("15. 三数之和"," 预期结果:[[-1, 2, -1], [-1, 1, 0]] 实际结果:${engine.threeSum(arrayOf(-1, 0, 1, 2, -1, -4))}");
     }
 
     override fun reverseKGroup() = speed {
@@ -93,6 +102,9 @@ class WeekAExec : WeekAExecAgreement {
 
     override fun exec() {
         maxArea()
+        moveZeroes()
+        climbStairs()
+        threeSum()
         SpeedTimeStatistics.printSpeedCount()
     }
 

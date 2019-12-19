@@ -26,7 +26,7 @@ interface WeekAHomeWorkAgreement {
      * LeetCode Link
      * https://leetcode-cn.com/problems/container-with-most-water/
      */
-    fun maxArea(height: IntArray): Int
+    fun maxArea(height: Array<Int>): Int
 
     /**
      *  283. 移动零
@@ -34,7 +34,7 @@ interface WeekAHomeWorkAgreement {
      *  LeetCode Link
      *  https://leetcode-cn.com/problems/move-zeroes/
      */
-    fun moveZeroes(nums: IntArray)
+    fun moveZeroes(nums: Array<Int>)
 
     /**
      * 70. 爬楼梯
@@ -53,7 +53,7 @@ interface WeekAHomeWorkAgreement {
      * LeetCode Link
      * https://leetcode-cn.com/problems/3sum/
      */
-    fun threeSum(nums: IntArray): List<List<Int>>
+    fun threeSum(nums: Array<Int>): List<List<Int>>
 
     /**
      * 25. K 个一组翻转链表
