@@ -1,6 +1,7 @@
 package com.kawo.algorithm.code.weeka.impl
 
 import com.kawo.algorithm.code.weeka.agreement.WeekAExecAgreement
+import com.kawo.algorithm.code.weeka.vo.Node
 import com.kawo.algorithm.common.LOGGER
 import com.kawo.algorithm.common.SpeedTimeStatistics
 import com.kawo.algorithm.common.speed
@@ -32,7 +33,26 @@ class WeekAExec : WeekAExecAgreement {
     }
 
     override fun reverseKGroup() = speed {
+        var start = Node(1)
+        var temp : Node = start
+        for (i in 2 .. 100){
+            temp.next = Node(i)
+            temp.next?.apply {
+                temp = this
+            }
+        }
+        LOGGER.debug("25. K 个一组翻转链表","orginData 原始数据：${nodeToString(start)}")
+        LOGGER.debug("25. K 个一组翻转链表","orginData 反转后数据：${nodeToString(engine.reverseKGroup(start,5))}")
+    }
 
+    private fun nodeToString(node :Node):String{
+        var orginData = ""
+        var fortemp : Node? = node
+        while (fortemp != null){
+            orginData += " ${fortemp.data}"
+            fortemp = fortemp.next
+        }
+        return orginData
     }
 
     override fun detectCycle() = speed {
@@ -105,6 +125,7 @@ class WeekAExec : WeekAExecAgreement {
         moveZeroes()
         climbStairs()
         threeSum()
+        reverseKGroup()
         SpeedTimeStatistics.printSpeedCount()
     }
 

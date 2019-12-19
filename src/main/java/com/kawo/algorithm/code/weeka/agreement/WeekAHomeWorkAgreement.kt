@@ -1,5 +1,6 @@
 package com.kawo.algorithm.code.weeka.agreement
 
+import com.kawo.algorithm.code.weeka.vo.Node
 import java.util.*
 
 /**
@@ -70,7 +71,7 @@ interface WeekAHomeWorkAgreement {
      * LeetCode Link
      * https://leetcode-cn.com/problems/reverse-nodes-in-k-group/
      */
-    fun <NodeType> reverseKGroup(head: NodeType, k: Int): NodeType
+    fun reverseKGroup(head: Node, k: Int): Node
 
     /**
      * 142. 环形链表 II
