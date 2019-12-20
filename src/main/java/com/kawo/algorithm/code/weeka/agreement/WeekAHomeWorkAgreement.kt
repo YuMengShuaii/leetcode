@@ -81,7 +81,7 @@ interface WeekAHomeWorkAgreement {
      * LeetCode Link
      * https://leetcode-cn.com/problems/linked-list-cycle-ii/
      */
-    fun <NodeType> detectCycle(head: NodeType): NodeType
+    fun detectCycle(head: Node): Node?
 
     /**
      * 141. 环形链表
@@ -90,7 +90,7 @@ interface WeekAHomeWorkAgreement {
      * LeetCode Link
      * https://leetcode-cn.com/problems/linked-list-cycle/
      */
-    fun <NodeType> hasCycle(head: NodeType): Boolean
+    fun  hasCycle(head: Node): Boolean
 
     /**
      * 24. 两两交换链表中的节点
@@ -99,7 +99,7 @@ interface WeekAHomeWorkAgreement {
      * LeetCode Link
      * https://leetcode-cn.com/problems/swap-nodes-in-pairs/
      */
-    fun <NodeType> swapPairs(head: NodeType): NodeType
+    fun swapPairs(head: Node): Node
 
     /**
      * 206. 反转链表
@@ -110,7 +110,7 @@ interface WeekAHomeWorkAgreement {
      * LeetCode Link
      * https://leetcode-cn.com/problems/reverse-linked-list/
      */
-    fun <NodeType> reverseList(head: NodeType): NodeType
+    fun reverseList(head: Node): Node
 
     /**
      * 66. 加一
@@ -128,7 +128,7 @@ interface WeekAHomeWorkAgreement {
      * LeetCode Link
      * https://leetcode-cn.com/problems/plus-one/
      */
-    fun plusOne(digits: IntArray): IntArray
+    fun plusOne(digits: Array<Int>): Array<Int>
 
     /**
      * 1. 两数之和
@@ -141,7 +141,7 @@ interface WeekAHomeWorkAgreement {
      * LeetCode Link
      * https://leetcode-cn.com/problems/two-sum/
      */
-    fun twoSum(nums: IntArray, target: Int): IntArray
+    fun twoSum(nums: Array<Int>, target: Int): Array<Int>
 
     /**
      * 88. 合并两个有序数组

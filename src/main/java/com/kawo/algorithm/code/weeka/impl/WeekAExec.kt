@@ -41,8 +41,8 @@ class WeekAExec : WeekAExecAgreement {
                 temp = this
             }
         }
-        LOGGER.debug("25. K 个一组翻转链表","orginData 原始数据：${nodeToString(start)}")
-        LOGGER.debug("25. K 个一组翻转链表","orginData 反转后数据：${nodeToString(engine.reverseKGroup(start,5))}")
+        LOGGER.info("25. K 个一组翻转链表","orginData 原始数据：${nodeToString(start)}")
+        LOGGER.info("25. K 个一组翻转链表","orginData 反转后数据：${nodeToString(engine.reverseKGroup(start,5))}")
     }
 
     private fun nodeToString(node :Node):String{
@@ -56,27 +56,65 @@ class WeekAExec : WeekAExecAgreement {
     }
 
     override fun detectCycle() = speed {
-
+        var node = Node(0)
+        var node1 = Node(1)
+        node.next = node1
+        node1.next = node
+        LOGGER.info("142. 环形链表 II","$node")
+        LOGGER.info("142. 环形链表 II","${engine.detectCycle(node)}")
     }
 
     override fun hasCycle() = speed {
-
+        var node = Node(0)
+        var node1 = Node(1)
+        node.next = node1
+        node1.next = node
+        LOGGER.info("141. 环形链表","$node")
+        LOGGER.info("141. 环形链表","${engine.detectCycle(node)}")
     }
 
     override fun swapPairs() = speed {
-
+        var start = Node(1)
+        var temp : Node = start
+        for (i in 2 .. 99){
+            temp.next = Node(i)
+            temp.next?.apply {
+                temp = this
+            }
+        }
+        LOGGER.info("24. 两两交换链表中的节点","orginData 原始数据：${nodeToString(start)}")
+        LOGGER.info("24. 两两交换链表中的节点","orginData 反转后数据：${nodeToString(engine.swapPairs(start))}")
     }
 
     override fun reverseList() = speed {
-
+        var start = Node(1)
+        var temp : Node = start
+        for (i in 2 .. 99){
+            temp.next = Node(i)
+            temp.next?.apply {
+                temp = this
+            }
+        }
+        LOGGER.info("206. 反转链表","orginData 原始数据：${nodeToString(start)}")
+        LOGGER.info("206. 反转链表","orginData 反转后数据：${nodeToString(engine.reverseList(start))}")
     }
 
     override fun plusOne() = speed {
-
+        var int = arrayOf(9,1,9,9)
+        var string = ""
+        engine.plusOne(int).forEach { i ->
+            string += i
+        }
+        LOGGER.info("66. 加一","入参9199 计算结果：$string")
     }
 
     override fun twoSum() = speed {
-
+        var int = arrayOf(9,1,2,3)
+        var string = ""
+        engine.twoSum(int,5).forEach { i ->
+            string += i
+        }
+        LOGGER.info("66. 加一","入参9 1 2 3 符合的坐标为：$string")
     }
 
     override fun merge() = speed {
@@ -126,6 +164,12 @@ class WeekAExec : WeekAExecAgreement {
         climbStairs()
         threeSum()
         reverseKGroup()
+        //detectCycle()
+        //hasCycle()
+        swapPairs()
+        reverseList()
+        plusOne()
+        twoSum()
         SpeedTimeStatistics.printSpeedCount()
     }
 

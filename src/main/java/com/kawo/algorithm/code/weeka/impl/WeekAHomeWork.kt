@@ -6,6 +6,9 @@ import com.kawo.algorithm.common.LOGGER
 import java.util.*
 import kotlin.math.max
 import kotlin.math.min
+import java.util.HashMap
+
+
 
 
 class WeekAHomeWork : WeekAHomeWorkAgreement {
@@ -131,28 +134,118 @@ class WeekAHomeWork : WeekAHomeWorkAgreement {
         }
     }
 
-    override fun <NodeType> detectCycle(head: NodeType): NodeType {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun detectCycle(head: Node): Node? {
+        /**快指针*/
+        var fast :Node? = head
+        /**慢指针*/
+        var slow :Node? = head
+        /**循环查找环*/
+        while (true) {
+            /**如果链表中有值为空，证明此链表无环*/
+            if (fast?.next == null) return null
+            /**快指针指向当前节点的下下节点*/
+            fast = fast?.next?.next
+            /**慢指针 指向下一个节点*/
+            slow = slow?.next
+            /**当下个节点等于下一个证明链表有环 并退出循环*/
+            if (fast == slow) break
+        }
+        /**重置快节点为首节点*/
+        fast = head
+        /**当快慢节点不同时 也就是首尾没有相交时 执行循环 一直到首尾相接时退出循环 这是快指针就是环的入口*/
+        /**快节点走了 慢节点两倍的步数 当快节点设为开始节点时 两个节点再走一半距离两个节点就会相遇 相遇后fast节点就是环入口*/
+        while (slow != fast) {
+            slow = slow?.next
+            fast = fast?.next
+        }
+        /**返回环的入口节点*/
+        return fast
     }
 
-    override fun <NodeType> hasCycle(head: NodeType): Boolean {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun hasCycle(head: Node): Boolean {
+        /**快指针*/
+        var fast : Node? = head
+        /**慢指针*/
+        var slow : Node? = head
+        /**当快指针为null 活着快指针的下个节点为null 则无环 反之进入循环校验*/
+        while (fast != null || fast?.next == null){
+            fast = fast?.next?.next
+            slow = slow?.next
+            /**快指针 慢指针相遇 该链表有环*/
+            if(fast == slow){
+                return true
+            }
+        }
+        return false
     }
 
-    override fun <NodeType> swapPairs(head: NodeType): NodeType {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
+    override fun swapPairs(head: Node): Node {
+        /**把头节点的下个节点置为新节点*/
+        val newNode = head.next
+        /**当新节点为null时直接返回head 代表剩余元素不足两个 无需反转*/
+        if (newNode == null) {
+            return head
+        /**当新节点不为null时 把头节点的下一个节点重置为头节点的下下个节点 且把新节点的下个节点指向头节点 完成节点转制*/
+        } else {
+            head.next = newNode.next
+            newNode.next = head
+        }
+        /**当下下个节点不为null时 继续转制剩余节点*/
+        if (head.next != null) {
+            head.next = swapPairs(head.next!!)
+        }
+        /**返回转制完成的头节点*/
+        return newNode
     }
 
-    override fun <NodeType> reverseList(head: NodeType): NodeType {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun reverseList(head: Node): Node {
+        /**设置当前坐标*/
+        var cur = head
+        /**当下个节点不为null时执行*/
+        if(head.next != null){
+            /**递归转制 下一个坐标*/
+            cur = reverseList(head.next!!)
+            /**添加反向链表节点*/
+            head.next!!.next = head
+            /**防止链表有环 置空正向链表节点 使链表结构变为反向*/
+            head.next = null
+        }
+        return cur
     }
 
-    override fun plusOne(digits: IntArray): IntArray {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun plusOne(digits: Array<Int>): Array<Int> {
+        /**倒叙循环*/
+        for (i in digits.size - 1 downTo 0) {
+            /**每个数字先自增加一*/
+            digits[i]++
+            /**求余数 用此方法把值为10可以进一位的数字 变为0*/
+            digits[i] = digits[i] % 10
+            /**当处理完后 当有一位数字不为零时 代表此数组不满足增加新一位的要求 直接返回结果*/
+            if (digits[i] !== 0) return digits
+        }
+        /**新建数组 位数为原数组位数加一 且默认值都为0 因为走到这一步 代表原数组加一后所有的位数均是0 需要新增加一位数组元素到数组头 且首位为1*/
+        var digits = Array(digits.size + 1) {0}
+        digits[0] = 1
+        return digits
     }
 
-    override fun twoSum(nums: IntArray, target: Int): IntArray {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun twoSum(nums: Array<Int>, target: Int): Array<Int> {
+        /**新建一个HashMap用来存储计算过的值*/
+        val map = HashMap<Int, Int>()
+        /**遍历计算*/
+        for (i in 0 until nums.size) {
+            /**获取目标值减去 当前数字的差*/
+            val complement = target - nums[i]
+            /**看计算过的数字是否有和差值相同的*/
+            if (map.containsKey(complement)) {
+                /**如果有相同的 从map中拿取坐标 和 当前数字坐标一起返回*/
+                return arrayOf(map[complement]!!, i)
+            }
+            /**如果没有找到合适的值 把当前计算过的数值放到HashMap中缓存*/
+            map[nums[i]] = i
+        }
+        return arrayOf()
     }
 
     override fun merge(nums1: IntArray, m: Int, nums2: IntArray, n: Int) {
