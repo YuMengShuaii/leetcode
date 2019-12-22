@@ -44,6 +44,7 @@ open class WorkExector private constructor(){
         for (clazz in classList) {
             (clazz.newInstance() as BaseExec).exec()
         }
+        SpeedTimeStatistics.printSpeedCount()
     }
 
 

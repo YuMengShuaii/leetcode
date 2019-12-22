@@ -8,6 +8,7 @@
     <artifactId>leetcode</artifactId>
     <version>1.0-Beta</version>
 
+
     <properties>
         <kotlin.version>1.3.61</kotlin.version>
     </properties>

@@ -157,7 +157,7 @@ interface WeekAHomeWorkAgreement {
      * LeetCode Link
      * https://leetcode-cn.com/problems/merge-sorted-array/
      */
-    fun merge(nums1: IntArray, m: Int, nums2: IntArray, n: Int)
+    fun merge(nums1: Array<Int>, m: Int, nums2: Array<Int>, n: Int)
 
     /**
      * 21. 合并两个有序链表
@@ -168,7 +168,7 @@ interface WeekAHomeWorkAgreement {
      * LeetCode Link
      * https://leetcode-cn.com/problems/merge-two-sorted-lists/
      */
-    fun <NodeType> mergeTwoLists(l1: NodeType, l2: NodeType): NodeType
+    fun  mergeTwoLists(l1: Node?, l2: Node?): Node?
 
     /**
      * 189. 旋转数组
@@ -192,7 +192,7 @@ interface WeekAHomeWorkAgreement {
      * LeetCode Link
      * https://leetcode-cn.com/problems/rotate-array/
      */
-    fun rotate(nums: IntArray, k: Int)
+    fun rotate(nums: Array<Int>, k: Int)
 
     /**
      * 26. 删除排序数组中的重复项
@@ -220,7 +220,7 @@ interface WeekAHomeWorkAgreement {
      * LeetCode Link
      * https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array/
      */
-    fun removeDuplicates(nums: IntArray): Int
+    fun removeDuplicates(nums: Array<Int>): Int
 
     /**
      * =================================================================================================================
@@ -240,7 +240,7 @@ interface WeekAHomeWorkAgreement {
      * LeetCode Link
      * https://leetcode-cn.com/problems/trapping-rain-water/
      */
-    fun trap(height: IntArray): Int
+    fun trap(height: Array<Int>): Int
 
     /**
      * 641. 设计循环双端队列
@@ -272,7 +272,7 @@ interface WeekAHomeWorkAgreement {
      * LeetCode Link
      * https://leetcode-cn.com/problems/design-circular-deque/
      */
-    fun <ValueType, DequeType : Deque<ValueType>> dequeTest(deque: DequeType)
+    fun dequeTest()
 
     /**
      * 239. 滑动窗口最大值
@@ -297,7 +297,7 @@ interface WeekAHomeWorkAgreement {
      * LeetCode Link
      * https://leetcode-cn.com/problems/sliding-window-maximum/
      */
-    fun maxSlidingWindow(nums: IntArray, k: Int): IntArray
+    fun maxSlidingWindow(nums: Array<Int>, k: Int): Array<Int>
 
     /**
      * 84. 柱状图中最大的矩形
@@ -311,7 +311,7 @@ interface WeekAHomeWorkAgreement {
      * LeetCode Link
      * https://leetcode-cn.com/problems/largest-rectangle-in-histogram/
      */
-    fun largestRectangleArea(heights: IntArray): Int
+    fun largestRectangleArea(heights: Array<Int>): Int
 
     /**
      * 155. 最小栈

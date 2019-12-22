@@ -1,14 +1,11 @@
 package com.kawo.algorithm.code.weeka.impl
 
 import com.kawo.algorithm.code.weeka.agreement.WeekAHomeWorkAgreement
+import com.kawo.algorithm.code.weeka.util.MinStack
 import com.kawo.algorithm.code.weeka.vo.Node
-import com.kawo.algorithm.common.LOGGER
 import java.util.*
 import kotlin.math.max
 import kotlin.math.min
-import java.util.HashMap
-
-
 
 
 class WeekAHomeWork : WeekAHomeWorkAgreement {
@@ -248,43 +245,162 @@ class WeekAHomeWork : WeekAHomeWorkAgreement {
         return arrayOf()
     }
 
-    override fun merge(nums1: IntArray, m: Int, nums2: IntArray, n: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun merge(nums1: Array<Int>, m: Int, nums2: Array<Int>, n: Int) {
+        /**指向nums1的尾部*/
+        var enda = m - 1
+        /**指向nums2的尾部*/
+        var endb = n - 1
+        /**指向nums1尾部 遍历比较*/
+        var len = m + n - 1
+        while (enda >= 0 && endb >= 0) { // 注意--符号在后面，表示先进行计算再减1，这种缩写缩短了代码
+            nums1[len--] = if (nums1[enda] > nums2[endb]) nums1[enda--] else nums2[endb--]
+        }
+        // 表示将nums2数组从下标0位置开始，拷贝到nums1数组中，从下标0位置开始，长度为len2+1
+        // 表示将nums2数组从下标0位置开始，拷贝到nums1数组中，从下标0位置开始，长度为len2+1
+        System.arraycopy(nums2, 0, nums1, 0, endb + 1)
     }
 
-    override fun <NodeType> mergeTwoLists(l1: NodeType, l2: NodeType): NodeType {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun mergeTwoLists(l1: Node?, l2: Node?): Node? {
+        /**1链表节点为空时返回2链表*/
+        if (l1 == null) {
+            return l2
+        }
+        /**2链表节点为空时返回1链表*/
+        if (l2 == null) {
+            return l1
+        }
+        return if (l1.data < l2.data) {
+            l1.next = mergeTwoLists(l1.next, l2)
+            l1
+        } else {
+            l2.next = mergeTwoLists(l1, l2.next)
+            l2
+        }
     }
 
-    override fun rotate(nums: IntArray, k: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun rotate(nums: Array<Int>, k: Int) {
+        /**临时存储*/
+        var temp: Int
+        /**上一个*/
+        var previous: Int
+        /**遍历操作旋转*/
+        for (i in 0 until k) {
+            previous = nums[nums.size - 1]
+            for (j in nums.indices) {
+                temp = nums[j]
+                nums[j] = previous
+                previous = temp
+            }
+        }
     }
 
-    override fun removeDuplicates(nums: IntArray): Int {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun removeDuplicates(nums: Array<Int>): Int {
+        /**如果长度为0 不删除*/
+        if (nums.isEmpty()) return 0
+        /**存储临时值 用来计算重复*/
+        var k = 1
+        for (i in 1 until nums.size) {
+            if (nums[i] != nums[i - 1]) {
+                nums[k] = nums[i]
+                k++
+            }
+        }
+        return k
     }
 
-    override fun trap(height: IntArray): Int {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun trap(height: Array<Int>): Int {
+        val getMax = {height : Array<Int> -> Int
+            var max = 0
+            for (i in height.indices) {
+                if (height[i] > max) {
+                    max = height[i]
+                }
+            }
+            max
+        }
+        var sum = 0
+        /**遍历寻找最大高度*/
+        val max = getMax(height)
+        for (i in 1..max) {
+            /**设置更新标记*/
+            var isStart = false
+            var temp_sum = 0
+            for (j in height.indices) {
+                if (isStart && height[j] < i) {
+                    temp_sum++
+                }
+                if (height[j] >= i) {
+                    sum += temp_sum
+                    temp_sum = 0
+                    isStart = true
+                }
+            }
+        }
+        return sum
     }
 
-    override fun <ValueType, DequeType : Deque<ValueType>> dequeTest(deque: DequeType) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun dequeTest() {
+        com.kawo.algorithm.code.weeka.util.Deque(10)
     }
 
-    override fun maxSlidingWindow(nums: IntArray, k: Int): IntArray {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun maxSlidingWindow(nums: Array<Int>, k: Int): Array<Int> {
+        /**判断小概率事件*/
+        if (nums.size < 2) return nums
+        val queue: LinkedList<Int?> = LinkedList()
+        val result = Array(nums.size - k + 1) {0}
+        /**遍历数组*/
+        for (i in nums.indices) {
+            /**保证从大到小依次弹出*/
+            while (!queue.isEmpty() && nums[queue.peekLast()!!] <= nums[i]) {
+                queue.pollLast()
+            }
+            /**添加当前值对应下标*/
+            queue.addLast(i)
+            // 判断当前队列中队首的值是否有效
+            if (queue.peek()!! <= i - k) {
+                queue.poll()
+            }
+            // 当窗口长度为k时 保存当前窗口中最大值
+            if (i + 1 >= k) {
+                result[i + 1 - k] = nums[queue.peek()!!]
+            }
+        }
+        return result
     }
 
-    override fun largestRectangleArea(heights: IntArray): Int {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun largestRectangleArea(heights: Array<Int>): Int {
+        val stack = Stack<Int>()
+        stack.push(-1)
+        var maxArea = 0
+        for (i in heights.indices) {
+            while (stack.peek() != -1 && heights[stack.peek()] >= heights[i]) maxArea = maxArea.coerceAtLeast(heights[stack.pop()] * (i - stack.peek() - 1))
+            stack.push(i)
+        }
+        while (stack.peek() != -1) maxArea = maxArea.coerceAtLeast(heights[stack.pop()] * (heights.size - stack.peek() - 1))
+        return maxArea
     }
 
     override fun minStack() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        MinStack()
+    }
+    private val map: HashMap<Char, Char> = object : HashMap<Char, Char>() {
+        init {
+            put('{', '}')
+            put('[', ']')
+            put('(', ')')
+            put('?', '?')
+        }
     }
 
     override fun isValid(s: String): Boolean {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+        if (s.isNotEmpty() && !map.containsKey(s[0])) return false
+        val stack: LinkedList<Char> = object : LinkedList<Char>() {
+            init {
+                add('?')
+            }
+        }
+        for (c in s.toCharArray()) {
+            if (map.containsKey(c)) stack.addLast(c) else if (map[stack.removeLast()] !== c) return false
+        }
+        return stack.size == 1    }
 }
